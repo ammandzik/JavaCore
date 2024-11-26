@@ -1,8 +1,8 @@
-package core;
+package excercises;
 
 public class Main {
 
     public static void main(String[] args) {
-        
+
     }
 }
