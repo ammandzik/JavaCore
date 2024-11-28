@@ -1,10 +1,8 @@
 <Player>
   <name>Pawel</name>
   <surname>Terra</surname>
+  <dateOfBirth>2004-01-02</dateOfBirth>
   <age>20</age>
   <category>GAMES</category>
   <phoneNumber>786-555-445</phoneNumber>
-  <dateOfBirth>2004</dateOfBirth>
-  <dateOfBirth>1</dateOfBirth>
-  <dateOfBirth>2</dateOfBirth>
 </Player>

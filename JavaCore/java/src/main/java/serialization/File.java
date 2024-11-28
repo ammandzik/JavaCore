@@ -17,7 +17,7 @@ class File {
     final static String XML_FILEPATH = "serialization.xml";
     final static XmlMapper xmlMapper = new XmlMapper();
 
-    public static void serializeBinary(Object o) throws FileNotFoundException, IOException {
+    public static <T> void serializeBinary(T o) throws FileNotFoundException, IOException {
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TXT_FILEPATH))) {
 
@@ -26,18 +26,18 @@ class File {
         }
     }
 
-    public static Object deserializeBinary() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public static <T> T deserializeBinary() throws FileNotFoundException, IOException, ClassNotFoundException {
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(TXT_FILEPATH))) {
 
-            Object o = (Object) ois.readObject();
+            T o = (T) ois.readObject();
 
             return o;
 
         }
     }
 
-    public static void serializeToJson(Object o) throws FileNotFoundException, IOException {
+    public static <T> void serializeToJson(T o) throws FileNotFoundException, IOException {
 
         var gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -60,20 +60,20 @@ class File {
         }
     }
 
-    public static Object deserializeJson() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public static <T> T deserializeJson() throws FileNotFoundException, IOException, ClassNotFoundException {
 
         var gson = new GsonBuilder().create();
 
         var fr = new FileReader(JSON_FILEPATH);
 
-        Object object = gson.fromJson(fr, Object.class);
+        T object = (T) gson.fromJson(fr, Object.class);
 
         return object;
 
 
     }
 
-    public static void serializeToXml(Object o) throws FileNotFoundException, IOException, JAXBException {
+    public static <T> void serializeToXml(T o) throws FileNotFoundException, IOException, JAXBException {
 
         xmlMapper.registerModule(new JavaTimeModule());
         xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -87,7 +87,8 @@ class File {
 
     public static <T> T deserializeXml(String file, Class<T> obj) throws IOException {
 
-        return xmlMapper.readValue(XML_FILEPATH, obj);
+        xmlMapper.registerModule(new JavaTimeModule());
+        return xmlMapper.readValue(new java.io.File(XML_FILEPATH), obj);
 
 
     }
