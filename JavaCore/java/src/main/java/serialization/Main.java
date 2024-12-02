@@ -3,7 +3,6 @@ package serialization;
 import jakarta.xml.bind.JAXBException;
 
 import java.io.IOException;
-import java.util.Optional;
 
 class Main {
 
